@@ -103,5 +103,9 @@
     "simple_pie": "Simple Pie",
     "pie_with_labels": "Pie with labels",
     "donut": "Donut"
+  },
+  "products": {
+    "products": "Productos",
+    "bars": "Bars"
   }
 }
