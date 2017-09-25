@@ -1,13 +1,12 @@
 <div class="widgets">
 
   <div class="row">
-    <ba-card cardTitle="Basic Example" baCardClass="with-scroll" class="smart-table-container">
+    <ba-card cardTitle="Listado de productos" baCardClass="with-scroll" class="smart-table-container">
       <ng2-smart-table [settings]="settings" 
         [source]="source" 
-        (deleteConfirm)="onDeleteConfirm($event)"  
+        (delete)="deleteProduct($event)"  
         (create)="addProduct($event)" 
-        (edit)="addProduct($event)" 
-        (userRowSelect)='select($event);'>
+        (userRowSelect)='editProduct($event)'>
       </ng2-smart-table>
     </ba-card>
   </div>

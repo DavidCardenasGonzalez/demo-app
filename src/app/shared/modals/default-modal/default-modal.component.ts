@@ -10,17 +10,22 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class DefaultModal implements OnInit {
 
   modalHeader: string;
-  modalContent: string = `Lorem ipsum dolor sit amet,
-   consectetuer adipiscing elit, sed diam nonummy
-   nibh euismod tincidunt ut laoreet dolore magna aliquam
-   erat volutpat. Ut wisi enim ad minim veniam, quis
-   nostrud exerci tation ullamcorper suscipit lobortis
-   nisl ut aliquip ex ea commodo consequat.`;
-
+  modalButton: string = "Aceptar";
+  modalCancelButton: string = "Cancelar";
+  modalContent: string = ``;
+  showCancelButton = false;
   constructor(private activeModal: NgbActiveModal) {
   }
 
   ngOnInit() {}
+
+  ok() {
+    this.activeModal.close(true);
+  }
+
+  cancel() {
+    this.activeModal.close(false);
+  }
 
   closeModal() {
     this.activeModal.close();

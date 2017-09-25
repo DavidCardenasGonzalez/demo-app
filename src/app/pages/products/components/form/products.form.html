@@ -2,14 +2,11 @@
 
   <div class="row">
     <ba-card cardTitle="Basic Example" baCardClass="with-scroll" class="smart-table-container">
-      <ng2-smart-table [settings]="settings" 
-        [source]="source" 
-        (deleteConfirm)="onDeleteConfirm($event)"  
-        (create)="addProduct($event)" 
-        (edit)="addProduct($event)" 
-        (userRowSelect)='select($event);'>
-      </ng2-smart-table>
+    <div class="form-group">
+      <label for="name"></label>
+      <input type="text" class="form-control" [(ngModel)]="product.name">      
+    </div>
     </ba-card>
   </div>
-  <button (click)="addProduct()" class="btn btn-primary">agregar</button>
+  <button (click)="save()" class="btn btn-primary">Guardar</button>
 </div>

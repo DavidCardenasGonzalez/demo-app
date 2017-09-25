@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DefaultModal } from './default-modal/default-modal.component';
+import { DefaultModal } from '../../../../shared/modals/default-modal/default-modal.component';
 
 @Component({
   selector: 'modals',
@@ -13,6 +13,13 @@ export class Modals {
 
   lgModalShow() {
     const activeModal = this.modalService.open(DefaultModal, {size: 'lg'});
+
+    activeModal.result.then((result) => {
+        console.log(result);
+    }, (reason) => {
+        console.log(reason);
+    });
+    
     activeModal.componentInstance.modalHeader = 'Large Modal';
   }
   smModalShow(): void {

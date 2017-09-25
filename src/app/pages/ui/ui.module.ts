@@ -3,7 +3,6 @@ import { CommonModule }  from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { routing }       from './ui.routing';
 import { Ui } from './ui.component';
@@ -23,7 +22,10 @@ import { LargeButtons } from './components/buttons/components/largeButtons';
 import { DropdownButtons } from './components/buttons/components/dropdownButtons';
 import { GroupButtons } from './components/buttons/components/groupButtons';
 import { IconsService } from './components/icons/icons.service';
-import { DefaultModal } from './components/modals/default-modal/default-modal.component';
+
+import { SharedModule } from './../../shared/shared.module';
+
+// import { DefaultModal } from './components/modals/default-modal/default-modal.component';
 
 
 @NgModule({
@@ -31,10 +33,11 @@ import { DefaultModal } from './components/modals/default-modal/default-modal.co
     CommonModule,
     FormsModule,
     NgaModule,
-    NgbDropdownModule,
-    NgbModalModule,
+    // NgbDropdownModule,
+    // NgbModalModule,
     SlimLoadingBarModule.forRoot(),
-    routing
+    routing,
+    SharedModule
   ],
   declarations: [
     Buttons,
@@ -52,10 +55,10 @@ import { DefaultModal } from './components/modals/default-modal/default-modal.co
     LargeButtons,
     DropdownButtons,
     GroupButtons,
-    DefaultModal
+    // DefaultModal
   ],
   entryComponents: [
-    DefaultModal
+    // DefaultModal
   ],
   providers: [
     IconsService
