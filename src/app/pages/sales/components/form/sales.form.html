@@ -1,0 +1,96 @@
+<div class="widgets">
+
+  <div class="row">
+    <ba-card cardTitle="Basic Example" baCardClass="with-scroll" class="smart-table-container">
+      <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="name">Fecha</label>
+                <input type="date" class="form-control" [(ngModel)]="sale.date">      
+              </div>
+              <div class="form-group">
+                  <label for="name">Estatus</label>
+                  <select [(ngModel)]="sale.status" class="form-control">
+                    <option value="0">contactado</option>
+                    <option value="1">visitado</option>
+                    <option value="2">cotizado</option>
+                    <option value="3">aceptado</option>
+                    <option value="4">rechazado</option>
+                  </select>     
+                </div>
+                  <ba-checkbox [(ngModel)]="sale.iva" [baCheckboxClass]="'disabled'" [label]="'Lleva impuestos'" [disabled]="false"></ba-checkbox>
+                  
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="name">Cliente</label>
+                <select [(ngModel)]="sale.customer" (ngModelChange)="changeClient()" class="form-control">
+                  <option *ngFor="let customer of customers" [value]="customer.$key">{{customer.name}}</option>
+                </select>     
+              </div>
+              <div class="form-group" >
+                  <label for="name">Encargado</label>
+                  <select [(ngModel)]="sale.mandated" class="form-control">
+                    <option *ngFor="let contact of selectedCustomer.contacts" [value]="contact.id">{{contact.name + " " + contact.lastname}}</option>
+                  </select>     
+                </div>
+        </div>
+      </div>
+      <h1>Productos</h1>
+      <button (click)="addLine()" class="btn btn-primary">Agregar</button>
+      
+        <div class="horizontal-scroll">
+          <table class="table table-hover">
+            <thead>
+            <tr class="black-muted-bg">
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio unitario</th>
+              <th>Subtotal</th>
+              <th>IVA</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let line of sale.lines"  (click)="lineToEdit = line" class="no-top-border">
+              <td *ngIf="lineToEdit != line">{{getProductName(line)}}</td>
+              <td *ngIf="lineToEdit == line">
+                <select [(ngModel)]="line.productId" (ngModelChange)="changeProduct(line)" class="form-control">
+                  <option *ngFor="let product of products" [value]="product.$key">{{product.name}}</option>
+                </select>     
+              </td>
+              <td class="total-cell" *ngIf="lineToEdit != line">{{line.quantity}}</td>
+              <td *ngIf="lineToEdit == line"><input type="number" class="form-control" [(ngModel)]="line.quantity"></td>
+              <td class="total-cell" *ngIf="lineToEdit != line">{{line.unitaryPrice  | currency:'USD':true:'1.2-2'}}</td>
+              <td *ngIf="lineToEdit == line"><input type="number" class="form-control" [(ngModel)]="line.unitaryPrice"></td>
+              <td class="total-cell">{{(line.quantity * line.unitaryPrice)  | currency:'USD':true:'1.2-2'}}</td>
+              <td class="total-cell">{{taxesLine(line)  | currency:'USD':true:'1.2-2'}}</td>              
+              <td class="total-cell">{{(line.quantity * line.unitaryPrice + taxesLine(line)) | currency:'USD':true:'1.2-2'}}</td>
+              <td class="total-cell">
+                 <button (click)="deleteLine(line)" class="btn btn-danger">Borrar</button>  
+              </td>
+            </tr>
+            <tr *ngIf="sale.lines.length > 0">
+              <td colspan="3">
+                TOTAL
+              </td>
+              <td class="total-cell">{{subtotal()  | currency:'USD':true:'1.2-2'}}</td>              
+              <td class="total-cell">{{totalTaxes()  | currency:'USD':true:'1.2-2'}}</td>
+              <td class="total-cell">{{(totalTaxes() + subtotal())  | currency:'USD':true:'1.2-2'}}</td>
+              <td class="total-cell"></td>
+              
+            </tr>
+            <tr *ngIf="sale.lines.length == 0">
+              <td colspan="7">
+                No hay ninguna linea agregada aun
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+    </ba-card>
+  </div>
+  <button (click)="save()" class="btn btn-primary">Guardar</button>
+</div>

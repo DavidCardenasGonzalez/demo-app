@@ -1,0 +1,13 @@
+<div class="widgets">
+
+  <div class="row">
+    <ba-card cardTitle="Listado de usuarios" baCardClass="with-scroll" class="smart-table-container">
+      <ng2-smart-table [settings]="settings" 
+        [source]="source" 
+        (delete)="deleteProfile($event)"  
+        (create)="addProfile($event)" 
+        (userRowSelect)='editProfile($event)'>
+      </ng2-smart-table>
+    </ba-card>
+  </div>
+</div>

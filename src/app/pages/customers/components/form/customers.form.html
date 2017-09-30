@@ -1,0 +1,71 @@
+<div class="widgets">
+
+  <div class="row">
+    <ba-card cardTitle="Basic Example" baCardClass="with-scroll" class="smart-table-container">
+    <div class="form-group">
+      <label for="name">Nombre</label>
+      <input type="text" class="form-control" [(ngModel)]="customer.name">      
+    </div>
+    <div class="form-group">
+      <label for="name">Telefono</label>
+      <input type="text" class="form-control" [(ngModel)]="customer.phone">      
+    </div>
+    <div class="form-group">
+      <label for="name">Pagina de internet</label>
+      <input type="text" class="form-control" [(ngModel)]="customer.website">      
+    </div>
+    <div class="form-group">
+      <label for="name">Notas</label>
+      <textarea type="text" class="form-control" [(ngModel)]="customer.notes"> 
+      </textarea>
+    </div>
+
+      <h1>Contactos</h1>
+  <button (click)="addContact()" class="btn btn-primary">Agregar</button>
+  
+    <div class="horizontal-scroll">
+      <table class="table table-hover">
+        <thead>
+        <tr class="black-muted-bg">
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Puesto</th>
+          <th>Telefono</th>
+          <th>Telefono 2</th>
+          <th>Whatsapp</th>
+          <th>Facebook</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let contact of customer.contacts"  (click)="contactToEdit = contact" class="no-top-border">
+          <td *ngIf="contactToEdit != contact">{{contact.name}}</td>
+          <td *ngIf="contactToEdit == contact"><input type="text" class="form-control" [(ngModel)]="contact.name"></td>
+          <td *ngIf="contactToEdit != contact">{{contact.lastname}}</td>
+          <td *ngIf="contactToEdit == contact"><input type="text" class="form-control" [(ngModel)]="contact.lastname"></td>
+          <td *ngIf="contactToEdit != contact">{{contact.position}}</td>
+          <td *ngIf="contactToEdit == contact"><input type="text" class="form-control" [(ngModel)]="contact.position"></td>
+          <td *ngIf="contactToEdit != contact">{{contact.phone}}</td>
+          <td *ngIf="contactToEdit == contact"><input type="text" class="form-control" [(ngModel)]="contact.phone"></td>
+          <td *ngIf="contactToEdit != contact">{{contact.phone2}}</td>
+          <td *ngIf="contactToEdit == contact"><input type="text" class="form-control" [(ngModel)]="contact.phone2"></td>
+          <td *ngIf="contactToEdit != contact">{{contact.whatsapp}}</td>
+          <td *ngIf="contactToEdit == contact"><input type="text" class="form-control" [(ngModel)]="contact.whatsapp"></td>
+          <td *ngIf="contactToEdit != contact">{{contact.facebook}}</td>
+          <td *ngIf="contactToEdit == contact"><input type="text" class="form-control" [(ngModel)]="contact.facebook"></td>
+          <td>
+             <button (click)="deleteContact(contact)" class="btn btn-danger">Borrar</button>  
+          </td>
+        </tr>
+        <tr *ngIf="customer.contacts.length == 0">
+          <td colspan="8">
+            No hay ningun contacto agregado aun
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    </ba-card>
+  </div>
+  <button (click)="save()" class="btn btn-primary">Guardar</button>
+</div>
