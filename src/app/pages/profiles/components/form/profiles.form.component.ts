@@ -10,6 +10,7 @@ import { AuthService } from '../../../../shared/auth.service';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import {Observable} from 'rxjs/Rx';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'profilesForm',
@@ -17,10 +18,11 @@ import {Observable} from 'rxjs/Rx';
   styleUrls: ['./profiles.form.scss']
 })
 export class ProfilesForm implements OnInit {
- public id;
+  password: string;
+  public id;
  public dbprofiles;
  public profile: Profile =new Profile();
-  constructor(protected service: ProfilesService, private auth: AuthService, public db: AngularFireDatabase, private router: Router, private activatedRoute: ActivatedRoute){
+  constructor(protected service: ProfilesService, private auth: AuthService, public db: AngularFireDatabase, private router: Router, private activatedRoute: ActivatedRoute, public afAuth: AngularFireAuth){
     this.dbprofiles = this.db.list('profiles')
     
   }
@@ -47,8 +49,12 @@ export class ProfilesForm implements OnInit {
   }
 
   addProfile(): void {
-    this.dbprofiles.push(this.profile)
-    .then(x => this.router.navigate(["pages","profiles"]));
+    var that = this;
+    this.afAuth.auth.createUserWithEmailAndPassword(this.profile.email, this.password).
+    then(function(x){ 
+      that.db.object('profiles/' + x.uid).set(that.profile)
+      .then(z => that.router.navigate(["pages","profiles"]));
+    })
   }
 
   updateProfile() {

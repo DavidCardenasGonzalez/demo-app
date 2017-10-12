@@ -5,5 +5,8 @@ import { Class } from '@angular/core';
     //   constructor(name) {
     //       this.name = name;
     //   }
-      name: string
+    $key: string;
+      name: string;
+      country: string;
+      email: string;
   }

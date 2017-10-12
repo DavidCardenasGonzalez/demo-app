@@ -1,0 +1,27 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title">{{modalHeader}}</h4>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{modalContent}}
+    <div class="form-group">
+        <label for="name">Fecha</label>
+        <input type="date" class="form-control" [ngModel]="activity.date | date:'yyyy-MM-dd'" (ngModelChange)="activity.date = $event">    
+    </div>
+    <div class="form-group">
+        <label for="name">Hora</label>
+        <ngb-timepicker [(ngModel)]="activity.hour" [meridian]="true" [minuteStep]="15"></ngb-timepicker>
+      </div>
+    <div class="form-group">
+        <label for="">Actividad</label>
+        <textarea [(ngModel)]="activity.fact" class="form-control" cols="30" rows="10"></textarea>
+      </div> 
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="showCancelButton" class="btn btn-danger confirm-btn" (click)="cancel()">{{modalCancelButton}}</button>
+    <button class="btn btn-primary confirm-btn" (click)="ok()">{{modalButton}}</button>
+  </div>
+</div>

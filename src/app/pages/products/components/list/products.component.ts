@@ -8,7 +8,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import * as firebase from 'firebase/app';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DefaultModal } from '../../../../shared/modals/default-modal/default-modal.component';
+import { DefaultModal } from 'app/shared/modals/default-modal/default-modal.component';
 
 @Component({
   selector: 'productsList',
@@ -45,6 +45,10 @@ export class ProductsList implements OnInit {
       name: {
         title: 'Nombre',
         type: 'string'
+      },
+      price: {
+        title: 'Precio',
+        type: 'number'
       },
     }
   };

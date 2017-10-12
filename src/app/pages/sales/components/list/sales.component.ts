@@ -9,6 +9,9 @@ import * as firebase from 'firebase/app';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DefaultModal } from '../../../../shared/modals/default-modal/default-modal.component';
+import { Observable } from 'rxjs/Observable';
+import * as _ from 'lodash';
+import { SaleLine } from 'app/pages/sales/sale.model';
 
 @Component({
   selector: 'salesList',
@@ -32,31 +35,74 @@ export class SalesList implements OnInit {
       createButtonContent: '<i class="ion-checkmark"></i>',
       cancelButtonContent: '<i class="ion-close"></i>',
     },
-    // edit: {
-    //   editButtonContent: '<i class="ion-edit"></i>',
-    //   saveButtonContent: '<i class="ion-checkmark"></i>',
-    //   cancelButtonContent: '<i class="ion-close"></i>',
-    // },
     delete: {
       deleteButtonContent: '<i class="ion-trash-a"></i>',
       confirmDelete: true
     },
     columns: {
-      name: {
-        title: 'Nombre',
+      date: {
+        title: 'Fecha',
+        type: 'date'
+      },
+      customer: {
+        title: 'Cliente',
         type: 'string'
+      },
+      status: {
+        title: 'Estatus',
+        type: 'number'
+      },
+      total: {
+        title: 'Total',
+        type: 'number'
       },
     }
   };
 
    source: LocalDataSource = new LocalDataSource();
   constructor(protected service: SalesService, private auth: AuthService, public db: AngularFireDatabase, private router: Router,private modalService: NgbModal) {
-    this.db.list('sales')
-    .subscribe(list => {
-      this.source.load(list);
+    var that = this;
+    var salesObservable = this.db.list('sales').take(1);
+    var customersObservable = this.db.list('customers').take(1);
+    var profilesObservable = this.db.list('profiles').take(1);    
+    Observable.forkJoin(salesObservable,customersObservable,profilesObservable)
+    .subscribe(
+    (response) => {
+      var sales = response[0];
+      var customers = response[1];
+      var list = sales.map(function(s){
+        return {
+          $key: s.$key,
+          date: s.date,
+          customer: _.find(customers, function(cus: any){
+              return cus.$key == s.customer;
+          }).name,
+          status: s.status,
+          total: that.total(s)
+        }      
+      });
+      that.source.load(list);      
     });
   }
 
+  taxesLine(sale, line: SaleLine){
+    return sale.iva ? line.quantity * line.unitaryPrice * 0.16 : 0;    
+  }
+
+  totalTaxes(sale){
+    var that = this;
+    return _.reduce(sale.lines, function(sum, line:SaleLine){
+      return sum + that.taxesLine(sale, line);
+    },0);    
+  }
+  subtotal(sale){
+    return _.reduce(sale.lines, function(sum, line:SaleLine){
+      return sum + (line.quantity * line.unitaryPrice);
+    },0);  
+  }
+  total(sale){
+    return this.totalTaxes(sale) + this.subtotal(sale);
+  }
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       event.confirm.resolve();

@@ -6,7 +6,8 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="name">Fecha</label>
-                <input type="date" class="form-control" [(ngModel)]="sale.date">      
+                <input type="date" class="form-control"  [ngModel]="sale.date | date:'yyyy-MM-dd'" (ngModelChange)="sale.date = $event">    
+                  
               </div>
               <div class="form-group">
                   <label for="name">Estatus</label>
@@ -36,7 +37,8 @@
                 </div>
         </div>
       </div>
-      <h1>Productos</h1>
+      <br>
+      <h3>Productos</h3>
       <button (click)="addLine()" class="btn btn-primary">Agregar</button>
       
         <div class="horizontal-scroll">
@@ -71,7 +73,7 @@
                  <button (click)="deleteLine(line)" class="btn btn-danger">Borrar</button>  
               </td>
             </tr>
-            <tr *ngIf="sale.lines.length > 0">
+            <tr *ngIf="sale.lines?.length > 0">
               <td colspan="3">
                 TOTAL
               </td>
@@ -81,16 +83,57 @@
               <td class="total-cell"></td>
               
             </tr>
-            <tr *ngIf="sale.lines.length == 0">
+            <tr *ngIf="sale.lines?.length == 0">
               <td colspan="7">
                 No hay ninguna linea agregada aun
               </td>
             </tr>
             </tbody>
           </table>
+        </div> 
+      <br>      
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <ba-card cardTitle="Actividades" baCardClass="with-scroll" class="smart-table-container">
+              <div *ngIf="!id">
+                  <div *ngFor="let activity of temporalActivities" class="card">
+                      <div class="card-block">
+                          <h3 class="card-title">{{activity.date  | date:'dd-MM-yyyy'}} {{activity.hour.hour|number:'2.0-0'}}:{{activity.hour.minute|number:'2.0-0'}}</h3>
+                          <p class="card-text">{{activity.fact}}</p>
+                          <button class="btn btn-primary"  (click)="addActivity(activity)">Editar</button>
+                      </div>
+                  </div>
+              </div>
+              <div *ngIf="id">
+                  <div *ngFor="let activity of activities | async" class="card">
+                      <div class="card-block">
+                          <h3 class="card-title">{{activity.date  | date:'dd-MM-yyyy'}} {{activity.hour.hour|number:'2.0-0'}}:{{activity.hour.minute|number:'2.0-0'}}</h3>
+                          <p class="card-text">{{activity.fact}}</p>
+                          <button class="btn btn-primary"  (click)="addActivity(activity)">Editar</button>
+                      </div>
+                  </div>
+              </div>
+              <button type="button" class="btn btn-primary" (click)="addActivity()">Agregar</button>
+            </ba-card>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <ba-card cardTitle="Cronologia" baCardClass="with-scroll" class="smart-table-container">
+                  <div *ngFor="let tl of sale.timeline" class="card">
+                      <div class="card-block">
+                          <h3 class="card-title">{{tl.date  | date:'dd-MM-yyyy'}}</h3>
+                          <p class="card-text">{{tl.fact}}</p>
+                  </div>
+              </div>
+                <div class="form-group">
+                  <label class="sr-only" for="">Agregar Cronologia</label>
+                  <textarea [(ngModel)]="timelineTect" class="form-control" cols="30" rows="10"></textarea>
+                </div> 
+              <button type="button" class="btn btn-primary" (click)="addTimeline()">Agregar</button>
+              
+            </ba-card>
+          </div>
         </div>
-
-    </ba-card>
+  </ba-card>
   </div>
   <button (click)="save()" class="btn btn-primary">Guardar</button>
 </div>

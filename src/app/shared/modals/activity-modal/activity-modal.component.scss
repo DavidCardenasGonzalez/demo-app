@@ -1,0 +1,15 @@
+@import "./../../../theme/sass/conf/conf.scss";
+.modal-buttons .btn {
+  margin-right: 20px;
+}
+
+.modal-content {
+  // color: $dropdown-text;
+  .form-group label {
+    color: black;  
+  }    
+  :host(.form-control) {
+    color: black;  
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+}

@@ -38,7 +38,16 @@
     font-size: 13px;
   }
 }
-
+.modal-content .form-control{
+  color: black;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  
+}
+.modal-content .form-control:focus{
+  color: black;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  
+}
 .form-control {
   color: $content-text;
   @include placeholderStyle($content-text, 0.7);

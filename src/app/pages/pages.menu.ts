@@ -15,6 +15,30 @@ export const PAGES_MENU = [
         }
       },
       {
+        path: 'sales',
+        data: {
+          menu: {
+            title: 'Ventas',
+            icon: 'ion-pricetag',
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
+        path: 'customers',
+        data: {
+          menu: {
+            title: 'Clientes',
+            icon: 'ion-ios-people',
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
         path: 'products',
         data: {
           menu: {
@@ -27,27 +51,17 @@ export const PAGES_MENU = [
         }
       },
       {
-        path: '',
+        path: 'profiles',
         data: {
           menu: {
-            title: 'general.menu.pages',
-            icon: 'ion-document',
+            title: 'Usuarios',
+            icon: 'ion-person',
             selected: false,
             expanded: false,
-            order: 650,
+            order: 0
           }
-        },
-        children: [
-          {
-            path: ['/login'],
-            data: {
-              menu: {
-                title: 'general.menu.login'
-              }
-            }
-          }
-        ]
-      }
+        }
+      },
     ]
   }
 ];

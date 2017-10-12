@@ -3,9 +3,21 @@
   <div class="row">
     <ba-card cardTitle="Basic Example" baCardClass="with-scroll" class="smart-table-container">
     <div class="form-group">
-      <label for="name"></label>
+      <label for="name">Nombre</label>
       <input type="text" class="form-control" [(ngModel)]="profile.name">      
     </div>
+    <div class="form-group">
+        <label for="name">Pais</label>
+        <input type="text" class="form-control" [(ngModel)]="profile.country">      
+      </div>
+      <div class="form-group">
+          <label for="name">Correo</label>
+          <input type="email" class="form-control" [(ngModel)]="profile.email">      
+        </div>
+        <div class="form-group" *ngIf="!id">
+            <label for="name">Contrase;a</label>
+            <input type="password" class="form-control" [(ngModel)]="password">      
+          </div>
     </ba-card>
   </div>
   <button (click)="save()" class="btn btn-primary">Guardar</button>
