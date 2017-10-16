@@ -23,6 +23,10 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from 'environments/environment';
+import { CalendarModule } from 'angular-calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import "firebase/storage";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -52,8 +56,9 @@ export type StoreType = {
     ReactiveFormsModule,
     NgaModule.forRoot(),
     NgbModule.forRoot(),
+    CalendarModule.forRoot(),     
     PagesModule,
-    AngularFireModule.initializeApp(environment.firebase, 'letslearn-dev'),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     routing

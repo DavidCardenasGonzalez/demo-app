@@ -15,6 +15,18 @@ export const PAGES_MENU = [
         }
       },
       {
+        path: 'activities',
+        data: {
+          menu: {
+            title: 'Actividades',
+            icon: 'ion-calendar',
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
         path: 'sales',
         data: {
           menu: {

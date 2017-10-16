@@ -9,4 +9,5 @@ import { Class } from '@angular/core';
       name: string;
       country: string;
       email: string;
+      picture: string;
   }

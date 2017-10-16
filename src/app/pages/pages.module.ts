@@ -12,9 +12,17 @@ import { NgbTimepicker, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DefaultModal } from '../shared/modals/default-modal/default-modal.component';
 import { ActivityModal } from '../shared/modals/activity-modal/activity-modal.component';
 import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'angular-calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  imports: [CommonModule, AppTranslationModule, NgaModule, FormsModule, NgbModule.forRoot(), routing],
+  imports: [CommonModule, 
+    AppTranslationModule, 
+    NgaModule, FormsModule,
+    BrowserAnimationsModule, 
+    NgbModule.forRoot(),
+    CalendarModule.forRoot(), 
+    routing],
   declarations: [Pages,DefaultModal,ActivityModal],
   entryComponents: [
     DefaultModal,

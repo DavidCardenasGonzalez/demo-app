@@ -20,6 +20,7 @@ export const routes: Routes = [
       { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
       { path: 'products', loadChildren: './products/products.module#ProductsModule' },
       { path: 'sales', loadChildren: './sales/sales.module#SalesModule' },
+      { path: 'activities', loadChildren: './activities/activities.module#ActivitiesModule' },
       { path: 'customers', loadChildren: './customers/customers.module#CustomersModule' },
       { path: 'profiles', loadChildren: './profiles/profiles.module#ProfilesModule' },
     ], canActivate: [AuthGuard]

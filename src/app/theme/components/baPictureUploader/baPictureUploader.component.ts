@@ -46,10 +46,12 @@ export class BaPictureUploader {
 
   removePicture():boolean {
     this.picture = '';
+    this.onUpload.emit(false);    
     return false;
   }
 
   _changePicture(file:File):void {
+    this.onUpload.emit(file);
     const reader = new FileReader();
     reader.addEventListener('load', (event:Event) => {
       this.picture = (<any> event.target).result;
